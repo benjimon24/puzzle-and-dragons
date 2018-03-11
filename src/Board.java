@@ -52,6 +52,18 @@ public class Board {
         }
     }
 
+    public boolean inDefaultPosition(){
+        for (int i = 0; i < board.length; i++){
+            if (board[i] != null) {
+                Orb orb = board[i];
+                if ((orb.getPosX() != ((i % 6) * orbSize) + boardPosX) || (orb.getPosY() != (((i / 6) * orbSize) + boardPosY))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public HashSet findMatches(){
         HashSet<Integer> matches = new HashSet<>();
         matches.addAll(findColMatches());

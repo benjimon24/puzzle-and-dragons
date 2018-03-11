@@ -84,6 +84,7 @@ public class Main extends PApplet{
             boardObj.deleteMatches();
             boardObj.cascadeAll();
 //            boardObj.resetOrbPositions();
+            System.out.println(boardObj.inDefaultPosition());
         }
 
     }
