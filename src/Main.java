@@ -2,12 +2,10 @@ import processing.core.PApplet;
 
 
 public class Main extends PApplet{
-    Board boardObj = new Board();
+    Board boardObj = new Board(200,200, 50);
     Orb[] board = boardObj.getBoard();
-    int orbSize = 50;
-    int boardPosX = 200;
-    int boardPosY=  200;
     int selectedOrb;
+    boolean isAnimating = false;
 
     public static void main(String[] args) {
         // write your code here
@@ -20,6 +18,10 @@ public class Main extends PApplet{
     }
     public void setup(){
         boardObj.populateBoard();
+        while (!boardObj.findMatches().isEmpty()){
+            boardObj.deleteMatches();
+            boardObj.populateBoard();
+        }
 
     }
     public void draw(){
@@ -34,48 +36,56 @@ public class Main extends PApplet{
                 } else {
                     noStroke();
                 }
-                ellipse(orb.getPosX(),orb.getPosY(), orbSize, orbSize);
+                ellipse(orb.getPosX(),orb.getPosY(), boardObj.getOrbSize(), boardObj.getOrbSize());
             }
         }
     }
 
     public void mousePressed(){
-        for (int i = 0; i < board.length; i++) {
-            Orb orb = board[i];
-            if (mouseX > orb.getPosX() - (orbSize / 2) &&
-                mouseX < orb.getPosX() + (orbSize / 2) &&
-                mouseY > orb.getPosY() - (orbSize / 2) &&
-                mouseY < orb.getPosY() + (orbSize / 2)){
-                orb.setSelected(true);
-                selectedOrb = i;
+        if (!isAnimating){
+            for (int i = 0; i < board.length; i++) {
+                Orb orb = board[i];
+                if (mouseX > orb.getPosX() - (boardObj.getOrbSize() / 2) &&
+                    mouseX < orb.getPosX() + (boardObj.getOrbSize() / 2) &&
+                    mouseY > orb.getPosY() - (boardObj.getOrbSize() / 2) &&
+                    mouseY < orb.getPosY() + (boardObj.getOrbSize() / 2)){
+                        orb.setSelected(true);
+                        selectedOrb = i;
+                }
             }
         }
     }
 
     public void mouseDragged() {
-        for (int i = 0; i < board.length; i++) {
-            Orb orb = board[i];
-            if (orb.isSelected()) {
-                orb.setPosX(mouseX);
-                orb.setPosY(mouseY);
-            } else if (mouseX > orb.getPosX() - orbSize / 2 &&
-                    mouseX < orb.getPosX() + orbSize / 2 &&
-                    mouseY > orb.getPosY() - orbSize / 2 &&
-                    mouseY < orb.getPosY() + orbSize / 2) {
-                Orb temp = board[selectedOrb];
-                board[selectedOrb] = board[i];
-                board[i] = temp;
-                board[selectedOrb].setPosX(((selectedOrb % 6) * 50) + boardPosX);
-                board[selectedOrb].setPosY(((selectedOrb / 6) * 50) + boardPosY);
-                selectedOrb = i;
+        if (!isAnimating) {
+            for (int i = 0; i < board.length; i++) {
+                Orb orb = board[i];
+                if (orb.isSelected()) {
+                    orb.setPosX(mouseX);
+                    orb.setPosY(mouseY);
+                } else if (mouseX > orb.getPosX() - boardObj.getOrbSize() / 2 &&
+                        mouseX < orb.getPosX() + boardObj.getOrbSize() / 2 &&
+                        mouseY > orb.getPosY() - boardObj.getOrbSize() / 2 &&
+                        mouseY < orb.getPosY() + boardObj.getOrbSize() / 2) {
+                            Orb temp = board[selectedOrb];
+                            board[selectedOrb] = board[i];
+                            board[i] = temp;
+                            board[selectedOrb].setPosX(((selectedOrb % 6) * boardObj.getOrbSize()) + boardObj.getBoardPosX());
+                            board[selectedOrb].setPosY(((selectedOrb / 6) * boardObj.getOrbSize()) + boardObj.getBoardPosY());
+                            selectedOrb = i;
+                }
             }
         }
     }
 
     public void mouseReleased() {
-        boardObj.resetOrbPositions();
-        boardObj.deleteMatches();
-//        boardObj.populateBoard();
+        if (!isAnimating) {
+            boardObj.resetOrbPositions();
+            boardObj.deleteMatches();
+            boardObj.cascadeAll();
+//            boardObj.resetOrbPositions();
+        }
+
     }
 
 }

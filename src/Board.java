@@ -4,12 +4,30 @@ import java.util.HashSet;
 
 public class Board {
     private Orb[] board = new Orb[30];
+    int boardPosX;
+    int boardPosY;
+    int orbSize;
 
-    public Board(){
+    public Board(int posX, int posY, int size){
+        boardPosX = posX;
+        boardPosY = posY;
+        orbSize = size;
     }
 
     public Orb[] getBoard() {
         return board;
+    }
+
+    public int getBoardPosX() {
+        return boardPosX;
+    }
+
+    public int getBoardPosY() {
+        return boardPosY;
+    }
+
+    public int getOrbSize() {
+        return orbSize;
     }
 
     public void populateBoard(){
@@ -17,7 +35,7 @@ public class Board {
             if (board[i] == null) {
                 Random rng = new Random();
                 int color = rng.nextInt(6);
-                Orb orb = new Orb(color, ((i % 6) * 50) + 200, ((i / 6) * 50) + 200);
+                Orb orb = new Orb(color, ((i % 6) * orbSize) + boardPosX, ((i / 6) * orbSize) + boardPosY);
                 board[i] = orb;
             }
         }
@@ -25,10 +43,12 @@ public class Board {
 
     public void resetOrbPositions(){
         for (int i = 0; i < board.length; i++){
-            Orb orb = board[i];
-            orb.setPosX(((i % 6) * 50) + 200);
-            orb.setPosY(((i / 6) * 50) + 200);
-            orb.setSelected(false);
+            if (board[i] != null) {
+                Orb orb = board[i];
+                orb.setPosX(((i % 6) * orbSize) + boardPosX);
+                orb.setPosY(((i / 6) * orbSize) + boardPosY);
+                orb.setSelected(false);
+            }
         }
     }
 
@@ -104,5 +124,22 @@ public class Board {
         return col;
     }
 
+    public void cascadeAll(){
+        for (int i = 0; i < 6; i++){
+            ArrayList<Integer> col = getCol(i);
+            cascadeCol(col);
+        }
+    }
 
+    public void cascadeCol(ArrayList<Integer> col){
+        int j = col.size() - 1;
+        for (int i = col.size() - 1; i >= 0; i--){
+            if (board[col.get(i)] != null){
+                Orb temp = board[col.get(i)];
+                board[col.get(i)] = board[col.get(j)];
+                board[col.get(j)] = temp;
+                j--;
+            }
+        }
+    }
 }
