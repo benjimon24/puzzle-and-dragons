@@ -1,6 +1,8 @@
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.lang.Math;
+import java.lang.Math.*;
 
 public class Board {
     private Orb[] board = new Orb[30];
@@ -35,7 +37,7 @@ public class Board {
             if (board[i] == null) {
                 Random rng = new Random();
                 int color = rng.nextInt(6);
-                Orb orb = new Orb(color, ((i % 6) * orbSize) + boardPosX, ((i / 6) * orbSize) + boardPosY);
+                Orb orb = new Orb(color, ((i % 6) * orbSize) + boardPosX, boardPosY - 200 + (i / 6) * orbSize);
                 board[i] = orb;
             }
         }
@@ -47,21 +49,52 @@ public class Board {
                 Orb orb = board[i];
                 orb.setPosX(((i % 6) * orbSize) + boardPosX);
                 orb.setPosY(((i / 6) * orbSize) + boardPosY);
-                orb.setSelected(false);
+            }
+        }
+    }
+
+    public Orb getSelected(){
+        for (int i = 0; i < board.length; i++) {
+            if (board[i] != null && board[i].isSelected()) {
+                return board[i];
+            }
+        }
+        return null;
+    }
+
+    public void moveOrbs(){
+        for (int i = 0; i < board.length; i++){
+            if (board[i] != null && !isOrbAtDefault(i) && !board[i].isSelected()){
+                Orb orb = board[i];
+//                if (Math.abs(orb.getPosX() - orbDefaultX(i)) > 5 && Math.abs(orb.getPosY() - orbDefaultY(i)) > 5) {
+                    orb.setPosX((int) (orb.getPosX() + Math.signum(orbDefaultX(i) - orb.getPosX()) ));
+                    orb.setPosY((int) (orb.getPosY() + Math.signum(orbDefaultY(i) - orb.getPosY()) ));
+//                } else {
+//                    orb.setPosX(((i % 6) * orbSize) + boardPosX);
+//                    orb.setPosY(((i / 6) * orbSize) + boardPosY);
+//                }
             }
         }
     }
 
     public boolean inDefaultPosition(){
         for (int i = 0; i < board.length; i++){
-            if (board[i] != null) {
-                Orb orb = board[i];
-                if ((orb.getPosX() != ((i % 6) * orbSize) + boardPosX) || (orb.getPosY() != (((i / 6) * orbSize) + boardPosY))) {
-                    return false;
-                }
-            }
+            if (board[i] != null && !isOrbAtDefault(i)) { return false; }
         }
         return true;
+    }
+
+    public boolean isOrbAtDefault(int i){
+        Orb orb = board[i];
+        return orb.getPosX() == orbDefaultX(i) && orb.getPosY() == orbDefaultY(i);
+    }
+
+    public int orbDefaultX(int i) {
+        return ((i % 6) * orbSize) + boardPosX;
+    }
+
+    public int orbDefaultY(int i) {
+        return ((i / 6) * orbSize) + boardPosY;
     }
 
     public HashSet findMatches(){

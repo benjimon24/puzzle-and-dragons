@@ -26,6 +26,8 @@ public class Main extends PApplet{
     }
     public void draw(){
         background(0);
+
+        // Orbs
         for (int i = 0; i < board.length; i++) {
             if (board[i] != null) {
                 Orb orb = board[i];
@@ -39,55 +41,62 @@ public class Main extends PApplet{
                 ellipse(orb.getPosX(),orb.getPosY(), boardObj.getOrbSize(), boardObj.getOrbSize());
             }
         }
+
+        boardObj.moveOrbs();
+        isAnimating = !boardObj.inDefaultPosition();
+
     }
 
     public void mousePressed(){
         if (!isAnimating){
             for (int i = 0; i < board.length; i++) {
-                Orb orb = board[i];
-                if (mouseX > orb.getPosX() - (boardObj.getOrbSize() / 2) &&
-                    mouseX < orb.getPosX() + (boardObj.getOrbSize() / 2) &&
-                    mouseY > orb.getPosY() - (boardObj.getOrbSize() / 2) &&
-                    mouseY < orb.getPosY() + (boardObj.getOrbSize() / 2)){
+                if (board[i] != null) {
+                    Orb orb = board[i];
+                    if (mouseX > orb.getPosX() - (boardObj.getOrbSize() / 2) &&
+                            mouseX < orb.getPosX() + (boardObj.getOrbSize() / 2) &&
+                            mouseY > orb.getPosY() - (boardObj.getOrbSize() / 2) &&
+                            mouseY < orb.getPosY() + (boardObj.getOrbSize() / 2)) {
                         orb.setSelected(true);
                         selectedOrb = i;
+                    }
                 }
             }
         }
     }
 
     public void mouseDragged() {
-        if (!isAnimating) {
+//        if (!isAnimating) {
             for (int i = 0; i < board.length; i++) {
-                Orb orb = board[i];
-                if (orb.isSelected()) {
-                    orb.setPosX(mouseX);
-                    orb.setPosY(mouseY);
-                } else if (mouseX > orb.getPosX() - boardObj.getOrbSize() / 2 &&
-                        mouseX < orb.getPosX() + boardObj.getOrbSize() / 2 &&
-                        mouseY > orb.getPosY() - boardObj.getOrbSize() / 2 &&
-                        mouseY < orb.getPosY() + boardObj.getOrbSize() / 2) {
-                            Orb temp = board[selectedOrb];
-                            board[selectedOrb] = board[i];
-                            board[i] = temp;
-                            board[selectedOrb].setPosX(((selectedOrb % 6) * boardObj.getOrbSize()) + boardObj.getBoardPosX());
-                            board[selectedOrb].setPosY(((selectedOrb / 6) * boardObj.getOrbSize()) + boardObj.getBoardPosY());
-                            selectedOrb = i;
+                if (board[i] != null) {
+                    Orb orb = board[i];
+                    if (orb.isSelected()) {
+                        orb.setPosX(mouseX);
+                        orb.setPosY(mouseY);
+                    } else if (mouseX > orb.getPosX() - boardObj.getOrbSize() / 2 &&
+                            mouseX < orb.getPosX() + boardObj.getOrbSize() / 2 &&
+                            mouseY > orb.getPosY() - boardObj.getOrbSize() / 2 &&
+                            mouseY < orb.getPosY() + boardObj.getOrbSize() / 2) {
+                        Orb temp = board[selectedOrb];
+                        board[selectedOrb] = board[i];
+                        board[i] = temp;
+                        board[selectedOrb].setPosX(((selectedOrb % 6) * boardObj.getOrbSize()) + boardObj.getBoardPosX());
+                        board[selectedOrb].setPosY(((selectedOrb / 6) * boardObj.getOrbSize()) + boardObj.getBoardPosY());
+                        selectedOrb = i;
+                    }
                 }
             }
-        }
+//        }
     }
 
     public void mouseReleased() {
-        if (!isAnimating) {
-            boardObj.resetOrbPositions();
+            if (boardObj.getSelected() != null){
+                boardObj.getSelected().setSelected(false);
+            }
             boardObj.deleteMatches();
             boardObj.cascadeAll();
-//            boardObj.resetOrbPositions();
-            System.out.println(boardObj.inDefaultPosition());
+            boardObj.populateBoard();
         }
 
-    }
 
 }
 
