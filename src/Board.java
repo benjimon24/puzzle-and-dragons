@@ -65,9 +65,9 @@ public class Board {
         for (int i = 0; i < board.length; i++){
             if (board[i] != null && !isOrbAtDefault(i) && !board[i].isSelected()){
                 Orb orb = board[i];
-                if (Math.abs(orb.getPosX() - orbDefaultX(i)) > 5 || Math.abs(orb.getPosY() - orbDefaultY(i)) > 5) {
-                    orb.setPosX((int) (orb.getPosX() + Math.signum(orbDefaultX(i) - orb.getPosX()) * 5));
-                    orb.setPosY((int) (orb.getPosY() + Math.signum(orbDefaultY(i) - orb.getPosY()) * 5));
+                if (Math.abs(orb.getPosX() - orbDefaultX(i)) > 12 || Math.abs(orb.getPosY() - orbDefaultY(i)) > 12) {
+                    orb.setPosX((int) (orb.getPosX() + Math.signum(orbDefaultX(i) - orb.getPosX()) * 3));
+                    orb.setPosY((int) (orb.getPosY() + Math.signum(orbDefaultY(i) - orb.getPosY()) * 3));
                 } else {
                     orb.setPosX((int) (orb.getPosX() + Math.signum(orbDefaultX(i) - orb.getPosX()) ));
                     orb.setPosY((int) (orb.getPosY() + Math.signum(orbDefaultY(i) - orb.getPosY()) ));
