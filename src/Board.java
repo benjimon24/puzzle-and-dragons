@@ -117,15 +117,21 @@ public class Board {
             ArrayList<Integer> row = getCol(i);
             ArrayList<Integer> temp = new ArrayList<>();
             for (int j = 0; j < row.size(); j++) {
-                if (temp.isEmpty() || board[temp.get(0)].getColor() == board[row.get(j)].getColor()){
-                    temp.add(row.get(j));
-                } else {
-                    if (temp.size() >= 3) { matches.addAll(temp); }
-                    temp = new ArrayList<>();
-                    temp.add(row.get(j));
-                }
-                if (j == row.size() - 1) {
-                    if (temp.size() >= 3) { matches.addAll(temp); }
+                if (board[row.get(j)] != null) {
+                    if (temp.isEmpty() || board[temp.get(0)].getColor() == board[row.get(j)].getColor()) {
+                        temp.add(row.get(j));
+                    } else {
+                        if (temp.size() >= 3) {
+                            matches.addAll(temp);
+                        }
+                        temp = new ArrayList<>();
+                        temp.add(row.get(j));
+                    }
+                    if (j == row.size() - 1) {
+                        if (temp.size() >= 3) {
+                            matches.addAll(temp);
+                        }
+                    }
                 }
             }
         }
@@ -138,15 +144,21 @@ public class Board {
             ArrayList<Integer> row = getRow(i);
             ArrayList<Integer> temp = new ArrayList<>();
             for (int j = 0; j < row.size(); j++) {
-                if (temp.isEmpty() || board[temp.get(0)].getColor() == board[row.get(j)].getColor()){
-                    temp.add(row.get(j));
-                } else {
-                    if (temp.size() >= 3) { matches.addAll(temp); }
-                    temp = new ArrayList<>();
-                    temp.add(row.get(j));
-                }
-                if (j == row.size() - 1) {
-                    if (temp.size() >= 3) { matches.addAll(temp); }
+                if (board[row.get(j)] != null) {
+                    if (temp.isEmpty() || board[temp.get(0)].getColor() == board[row.get(j)].getColor()) {
+                        temp.add(row.get(j));
+                    } else {
+                        if (temp.size() >= 3) {
+                            matches.addAll(temp);
+                        }
+                        temp = new ArrayList<>();
+                        temp.add(row.get(j));
+                    }
+                    if (j == row.size() - 1) {
+                        if (temp.size() >= 3) {
+                            matches.addAll(temp);
+                        }
+                    }
                 }
             }
         }

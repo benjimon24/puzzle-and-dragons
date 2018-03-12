@@ -2,7 +2,7 @@ import processing.core.PApplet;
 
 
 public class Main extends PApplet{
-    Board boardObj = new Board(200,200, 50);
+    Board boardObj = new Board(50,50, 50);
     Orb[] board = boardObj.getBoard();
     int selectedOrb;
     boolean isAnimating = false;
@@ -13,7 +13,7 @@ public class Main extends PApplet{
     }
 
     public void settings(){
-        size(600,600);
+        size(400,600);
 
     }
     public void setup(){
@@ -94,7 +94,7 @@ public class Main extends PApplet{
             }
             boardObj.deleteMatches();
             boardObj.cascadeAll();
-            boardObj.populateBoard();
+//            boardObj.populateBoard();
         }
 
 

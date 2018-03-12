@@ -3,12 +3,22 @@ public class Orb {
     private boolean selected;
     private int posX;
     private int posY;
+    private int alpha;
 
     public Orb(int color, int x, int y){
         this.color = color;
         this.posX = x;
         this.posY = y;
+        this.alpha = 255;
         this.selected = false;
+    }
+
+    public int getAlpha(){
+        return alpha;
+    }
+
+    public void setAlpha(int alpha) {
+        this.alpha = alpha;
     }
 
     public int getR() {
