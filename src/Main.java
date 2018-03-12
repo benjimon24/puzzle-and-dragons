@@ -62,6 +62,7 @@ public class Main extends PApplet{
                         noStroke();
                     }
                     ellipse(orb.getPosX(),orb.getPosY(), boardObj.getOrbSize(), boardObj.getOrbSize());
+                    noStroke();
                 }
             }
 
