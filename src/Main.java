@@ -7,7 +7,7 @@ public class Main extends PApplet{
     int highScore = 0;
     int selectedOrb;
     boolean gameOver = false;
-    int timer = 100;
+    int timer = 30000;
 
     public static void main(String[] args) {
         // write your code here
@@ -29,44 +29,41 @@ public class Main extends PApplet{
 
     public void draw(){
         background(0);
-        timer--;
+        if (timer > 0) {timer--;}
 
-        //run
         if (timer > 0) {
+            //score
+            textSize(32);
+            fill(255, 255, 255);
+            text("Score: " + highScore, 250, 50);
+            text ("Timer: " + timer / 100, 25, 50);
 
-        //score
-        textSize(32);
-        fill(255, 255, 255);
-        text("Score: " + highScore, 250, 50);
-        text ("Timer: " + timer / 100, 25, 50);
-
-        //board
-        for (int i = 0; i < board.length; i++) {
-            if ((i + (i / 6)) % 2 == 0) {
-                fill(75, 50, 25, 100);
-            } else {
-                fill(175, 125, 50, 100);
-            }
-            rect((i % 6) * boardObj.getOrbSize() + boardObj.getBoardPosX() - boardObj.getOrbSize() / 2,
-                    (i / 6) * boardObj.getOrbSize() + boardObj.getBoardPosY() - boardObj.getOrbSize() / 2,
-                    boardObj.getOrbSize(),
-                    boardObj.getOrbSize());
-        }
-        // Orbs
-        for (int i = 0; i < board.length; i++) {
-            if (board[i] != null) {
-                Orb orb = board[i];
-                fill(orb.getR(), orb.getG(), orb.getB());
-                if (orb.isSelected()){
-                    stroke(255);
-                    strokeWeight(2);
+            //board
+            for (int i = 0; i < board.length; i++) {
+                if ((i + (i / 6)) % 2 == 0) {
+                    fill(75, 50, 25, 100);
                 } else {
-                    noStroke();
+                    fill(175, 125, 50, 100);
                 }
-                ellipse(orb.getPosX(),orb.getPosY(), boardObj.getOrbSize(), boardObj.getOrbSize());
+                rect((i % 6) * boardObj.getOrbSize() + boardObj.getBoardPosX() - boardObj.getOrbSize() / 2,
+                        (i / 6) * boardObj.getOrbSize() + boardObj.getBoardPosY() - boardObj.getOrbSize() / 2,
+                        boardObj.getOrbSize(),
+                        boardObj.getOrbSize());
             }
-        }
-
+           // Orbs
+            for (int i = 0; i < board.length; i++) {
+                if (board[i] != null) {
+                    Orb orb = board[i];
+                    fill(orb.getR(), orb.getG(), orb.getB());
+                    if (orb.isSelected()){
+                        stroke(255);
+                        strokeWeight(2);
+                    } else {
+                        noStroke();
+                    }
+                    ellipse(orb.getPosX(),orb.getPosY(), boardObj.getOrbSize(), boardObj.getOrbSize());
+                }
+            }
 
 
             if (!boardObj.inDefaultPosition()) {
@@ -76,7 +73,7 @@ public class Main extends PApplet{
                 boardObj.deleteMatches();
                 boardObj.cascadeAll();
                 boardObj.populateBoard();
-            }
+                }
         } else {
             textSize(32);
             fill(255, 255, 255);
