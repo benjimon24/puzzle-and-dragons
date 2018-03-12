@@ -23,6 +23,7 @@ After that, I created the logic to detect matches and get rid of them. After tha
 * There was a moment when the app got stuck and froze my computer. I got a very lucky cascade in-game so my excitement was quite short-lived. At this point I am not quite sure how it happened.
 * Users can cheat by dragging an orb outside the board and cutting to the other side.
 * Users can interact with orbs while they are still moving into position.
+* I would like orbs to fade out as they get deleted.
 * I still need to add a proper game start / history interface.
 
 ___

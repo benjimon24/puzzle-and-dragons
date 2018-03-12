@@ -5,9 +5,9 @@ import java.lang.Math;
 
 public class Board {
     private Orb[] board = new Orb[30];
-    int boardPosX;
-    int boardPosY;
-    int orbSize;
+    private int boardPosX;
+    private int boardPosY;
+    private int orbSize;
 
     public Board(int posX, int posY, int size){
         boardPosX = posX;
@@ -85,7 +85,7 @@ public class Board {
 
     public boolean isOrbAtDefault(int i){
         Orb orb = board[i];
-        return orb.getPosX() == orbDefaultX(i) && orb.getPosY() == orbDefaultY(i);
+        return orb.getPosX() == orbDefaultX(i) && orb.getPosY() == orbDefaultY(i) && !board[i].isSelected();
     }
 
     public int orbDefaultX(int i) {
