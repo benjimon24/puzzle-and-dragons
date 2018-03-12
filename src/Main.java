@@ -2,7 +2,7 @@ import processing.core.PApplet;
 
 
 public class Main extends PApplet{
-    Board boardObj = new Board(50,100, 50);
+    Board boardObj = new Board(50,100, 25, 6);
     Orb[] board = boardObj.getBoard();
     int highScore = 0;
     int selectedOrb;

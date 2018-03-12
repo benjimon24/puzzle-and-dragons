@@ -8,11 +8,13 @@ public class Board {
     private int boardPosX;
     private int boardPosY;
     private int orbSize;
+    private int numOrbTypes;
 
-    public Board(int posX, int posY, int size){
+    public Board(int posX, int posY, int size, int types){
         boardPosX = posX;
         boardPosY = posY;
         orbSize = size;
+        numOrbTypes = types;
     }
 
     public Orb[] getBoard() {
@@ -35,7 +37,7 @@ public class Board {
         for (int i = 0; i < board.length; i++){
             if (board[i] == null) {
                 Random rng = new Random();
-                int color = rng.nextInt(6);
+                int color = rng.nextInt(numOrbTypes);
                 Orb orb = new Orb(color, ((i % 6) * orbSize) + boardPosX, boardPosY - 200 + (i / 6) * orbSize);
                 board[i] = orb;
             }
