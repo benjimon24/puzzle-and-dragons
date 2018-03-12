@@ -43,12 +43,12 @@ public class Main extends PApplet{
         }
 
         boardObj.moveOrbs();
-        isAnimating = !boardObj.inDefaultPosition();
+//        isAnimating = !boardObj.inDefaultPosition();
 
     }
 
     public void mousePressed(){
-        if (!isAnimating){
+//        if (!isAnimating){
             for (int i = 0; i < board.length; i++) {
                 if (board[i] != null) {
                     Orb orb = board[i];
@@ -61,7 +61,7 @@ public class Main extends PApplet{
                     }
                 }
             }
-        }
+//        }
     }
 
     public void mouseDragged() {

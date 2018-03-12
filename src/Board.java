@@ -2,7 +2,6 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.lang.Math;
-import java.lang.Math.*;
 
 public class Board {
     private Orb[] board = new Orb[30];
@@ -66,13 +65,13 @@ public class Board {
         for (int i = 0; i < board.length; i++){
             if (board[i] != null && !isOrbAtDefault(i) && !board[i].isSelected()){
                 Orb orb = board[i];
-//                if (Math.abs(orb.getPosX() - orbDefaultX(i)) > 5 && Math.abs(orb.getPosY() - orbDefaultY(i)) > 5) {
+                if (Math.abs(orb.getPosX() - orbDefaultX(i)) > 5 || Math.abs(orb.getPosY() - orbDefaultY(i)) > 5) {
+                    orb.setPosX((int) (orb.getPosX() + Math.signum(orbDefaultX(i) - orb.getPosX()) * 5));
+                    orb.setPosY((int) (orb.getPosY() + Math.signum(orbDefaultY(i) - orb.getPosY()) * 5));
+                } else {
                     orb.setPosX((int) (orb.getPosX() + Math.signum(orbDefaultX(i) - orb.getPosX()) ));
                     orb.setPosY((int) (orb.getPosY() + Math.signum(orbDefaultY(i) - orb.getPosY()) ));
-//                } else {
-//                    orb.setPosX(((i % 6) * orbSize) + boardPosX);
-//                    orb.setPosY(((i / 6) * orbSize) + boardPosY);
-//                }
+                }
             }
         }
     }
