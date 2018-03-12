@@ -24,6 +24,7 @@ After that, I created the logic to detect matches and get rid of them. After tha
 * Users can cheat by dragging an orb outside the board and cutting to the other side.
 * Users can interact with orbs while they are still moving into position.
 * I would like orbs to fade out as they get deleted.
+* I would like to track the number of combos in a single move
 * I still need to add a proper game start / history interface.
 
 ___
