@@ -1,6 +1,6 @@
 # Puzzle and Dragons
 
-This is a clone of the popular mobile game, Puzzle and Dragons, built on Java 8 using the Processing . It is a match-3 type puzzle game like Bejeweled or Candy Crush, except you can drag a piece as far as you want and swap with every piece you pass through along the way.
+This is a clone of the popular mobile game, Puzzle and Dragons, built on Java 8 using the Processing . It is a match-3 type puzzle game like Bejeweled or Candy Crush, except you can drag a piece as far as you want and swap with every piece you pass through along the way until you let go.
 
 
 ----
